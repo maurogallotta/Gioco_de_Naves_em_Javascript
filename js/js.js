@@ -23,7 +23,9 @@ var posicaoY = parseInt(Math.random() * 334);
 var TECLA = {
 	W: 87,
 	S: 83,
-	D: 68
+	A: 65,
+	D: 68,
+	F: 70
 	}
 
 	jogo.pressionou = [];
@@ -35,7 +37,7 @@ var TECLA = {
 	var somPerdido=document.getElementById("somPerdido");
 	var somResgate=document.getElementById("somResgate");
 
-	//M�sica em loop
+	//Msica em loop
 	musica.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
 	musica.play();
 
@@ -82,22 +84,35 @@ function movefundo() {
 			var topo = parseInt($("#jogador").css("top"));
 			$("#jogador").css("top",topo-10);
 			if (topo<=3) {
-		
 				$("#jogador").css("top",topo=3);
 			}
-		
 		}
 		
 		if (jogo.pressionou[TECLA.S]) {
-			
 			var topo = parseInt($("#jogador").css("top"));
 			$("#jogador").css("top",topo+10);	
 			if (topo>=434) {	
 				$("#jogador").css("top",topo=434);
 			}
 		}
+
+		if (jogo.pressionou[TECLA.A]) {
+			var laterais = parseInt($("#jogador").css("left"));
+			$("#jogador").css("left",laterais-10);
+			if (laterais<=3) {
+				$("#jogador").css("left",laterais=3);
+			}	
+		}
 		
 		if (jogo.pressionou[TECLA.D]) {
+			var laterais = parseInt($("#jogador").css("left"));
+			$("#jogador").css("left",laterais+10);	
+			if (laterais>=600) {	
+				$("#jogador").css("left",laterais=600);
+			}
+		}
+		
+		if (jogo.pressionou[TECLA.F]) {
 			
 			//Chama função Disparo	
 
@@ -131,6 +146,20 @@ function movefundo() {
 						
 		}
 	} // Fim da função moveinimigo2()
+
+	function moveinimigo5() {
+
+		posicaoX = parseInt($("#inimigo5").css("left"));
+		$("#inimigo5").css("left",posicaoX-velocidade);
+		$("#inimigo5").css("top",posicaoY);
+			
+		if (posicaoX<=0) {
+			posicaoY = parseInt(Math.random() * 334);
+			$("#inimigo5").css("left",694);
+			$("#inimigo5").css("top",posicaoY);
+				
+		}
+} //Fim da função moveinimigo1()
 
 	function moveamigo() {
 	
@@ -274,9 +303,9 @@ function movefundo() {
 			
 		}
 		
-	} //Fim da fun��o colisao()
+	} //Fim da função colisao()
 
-		//Explos�o 1
+		//Explosão 1
 	function explosao1(inimigo1X,inimigo1Y) {
 
 		somExplosao.play();
@@ -297,7 +326,7 @@ function movefundo() {
 				
 			}
 		
-	} // Fim da fun��o explosao1()
+	} // Fim da função explosao1()
 
 	//Reposiciona Inimigo2
 	
@@ -318,7 +347,7 @@ function movefundo() {
 			}	
 		}	
 
-		//Explos�o2
+		//Explosão2
 	
 	function explosao2(inimigo2X,inimigo2Y) {
 
@@ -341,7 +370,7 @@ function movefundo() {
 			}
 			
 			
-		} // Fim da fun��o explosao2()
+		} // Fim da função explosao2()
 
 				//Reposiciona Amigo
 	
@@ -361,9 +390,9 @@ function movefundo() {
 			
 		}
 		
-	} // Fim da fun��o reposicionaAmigo()
+	} // Fim da função reposicionaAmigo()
 		
-	//Explos�o3
+	//Explosão3
 	
 	function explosao3(amigoX,amigoY) {
 
@@ -379,13 +408,13 @@ function movefundo() {
 			
 		}
 	
-	} // Fim da fun��o explosao3
+	} // Fim da função explosao3
 
 	function placar() {
 	
 		$("#placar").html("<h2> Pontos: " + pontos + " Salvos: " + salvos + " Perdidos: " + perdidos + "</h2>");
 		
-	} //fim da fun��o placar()
+	} //fim da função placar()
 
 //Barra de energia
 
@@ -416,9 +445,9 @@ function energia() {
 
 		}	
 
-		} // Fim da fun��o energia()
+		} // Fim da função energia()
 		
-		//Fun��o GAME OVER
+		//Função GAME OVER
 		function gameOver() {
 			fimdejogo=true;
 			musica.pause();
@@ -436,7 +465,7 @@ function energia() {
 			
 			$("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
 			
-		} // Fim da fun��o gameOver();
+		} // Fim da função gameOver();
 			
 	} // Fim da função start
 
@@ -447,4 +476,4 @@ function energia() {
 		$("#fim").remove();
 		start();
 		
-	} //Fim da fun��o reiniciaJogo
+	} //Fim da função reiniciaJogo
